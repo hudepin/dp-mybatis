@@ -1,8 +1,10 @@
 package com.dp.mybatis.v2.config;
 
 
-import com.dp.mybatis.v2.mapper.MapperProxy;
+import com.dp.mybatis.v2.binding.MapperProxy;
+import com.dp.mybatis.v2.result.ResultSetHandler;
 import com.dp.mybatis.v2.session.DpSqlSession;
+import com.dp.mybatis.v2.statement.StatementHandler;
 
 import java.lang.reflect.Proxy;
 import java.util.HashMap;
@@ -25,5 +27,9 @@ public class DpConfiguration {
         static {
             methodSqlMappings.put("selectByPrimaryKey","select * from test where id=%d");
         }
+    }
+    public StatementHandler newStatementHandler(Object parameter, String sql, ResultSetHandler resultSetHandler){
+
+        return null;
     }
 }

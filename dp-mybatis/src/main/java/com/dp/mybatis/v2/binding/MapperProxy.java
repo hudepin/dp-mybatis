@@ -1,4 +1,4 @@
-package com.dp.mybatis.v2.mapper;
+package com.dp.mybatis.v2.binding;
 
 
 import com.dp.mybatis.v2.config.DpConfiguration;
