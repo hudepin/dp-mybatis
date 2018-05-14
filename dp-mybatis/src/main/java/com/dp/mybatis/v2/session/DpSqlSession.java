@@ -1,6 +1,7 @@
 package com.dp.mybatis.v2.session;
 
 
+import com.dp.mybatis.v2.binding.MapperData;
 import com.dp.mybatis.v2.config.DpConfiguration;
 import com.dp.mybatis.v2.executor.Executor;
 
@@ -16,6 +17,14 @@ public class DpSqlSession {
         this.executor = executor;
     }
 
+    public DpConfiguration getConfiguration() {
+        return configuration;
+    }
+
+    public void setConfiguration(DpConfiguration configuration) {
+        this.configuration = configuration;
+    }
+
     /**
      * 获取mapper
      * @param clazz
@@ -25,7 +34,7 @@ public class DpSqlSession {
     public <T> T getMapper(Class<T> clazz){
         return configuration.getMapper(clazz,this);
     }
-    public <T> T selectOne(String statement,String parameter){
-        return executor.query(statement,parameter);
+    public <T> T selectOne(MapperData mapperData, Object parameter){
+        return executor.query(mapperData,parameter);
     }
 }

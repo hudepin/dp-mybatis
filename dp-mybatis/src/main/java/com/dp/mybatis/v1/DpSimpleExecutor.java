@@ -1,5 +1,7 @@
 package com.dp.mybatis.v1;
 
+import com.dp.mybatis.entity.Test;
+
 import java.sql.*;
 
 /**

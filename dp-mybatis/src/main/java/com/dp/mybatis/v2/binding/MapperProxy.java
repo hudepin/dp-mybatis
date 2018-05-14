@@ -22,11 +22,10 @@ public class MapperProxy implements InvocationHandler{
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        if(method.getDeclaringClass().getName().equals(DpConfiguration.TestMapperXml.nameSpace)){
-            String paramete = String.valueOf(args[0]);
-            String statement =DpConfiguration.TestMapperXml.methodSqlMappings.get(method.getName());
-            return sqlSession.selectOne(statement,paramete);
-        }
+        MapperData mapperData = sqlSession.getConfiguration().getMapperData(method.getDeclaringClass().getName()+"."+method.getName());
+        String parameter = String.valueOf(args[0]);
+        if(mapperData!=null)
+        return sqlSession.selectOne(mapperData,parameter);
         return method.invoke(this,args);
     }
 }

@@ -1,5 +1,8 @@
 package com.dp.mybatis.v1;
 
+import com.dp.mybatis.entity.Test;
+import com.dp.mybatis.mapper.TestMapper;
+
 /**
  * <p>Description:</p>
  * Created with IDEA

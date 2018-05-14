@@ -1,5 +1,7 @@
 package com.dp.mybatis.v2.executor;
 
+import com.dp.mybatis.v2.binding.MapperData;
+
 /**
  * <p>Description:</p>
  * Created with IDEA
@@ -7,5 +9,12 @@ package com.dp.mybatis.v2.executor;
  * createTime:2018/5/11 10:43
  */
 public interface Executor {
-    <T> T query(String statement, String parameter);
+    /**
+     *
+     * @param mapperData
+     * @param parameter
+     * @param <T>
+     * @return
+     */
+    <T> T query(MapperData mapperData, Object parameter);
 }
