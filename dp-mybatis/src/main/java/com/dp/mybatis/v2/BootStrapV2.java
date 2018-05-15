@@ -18,6 +18,8 @@ public class BootStrapV2 {
         configuration.setScanPath("com.dp.mybatis.mapper");
         configuration.build();
         //end annotation方式实现
+        //新增plugin功能
+        configuration.addInterceptor(new SqlLogPlugin());
         DpSqlSession sqlSession = new DpSqlSession(configuration, ExecutorFactory.DEFAULT(configuration));
         TestMapper mapper = sqlSession.getMapper(TestMapper.class);
         System.out.println(mapper.selectByPrimaryKey(1));

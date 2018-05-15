@@ -2,6 +2,9 @@ package com.dp.mybatis.v2.executor;
 
 import com.dp.mybatis.v2.binding.MapperData;
 import com.dp.mybatis.v2.config.DpConfiguration;
+import com.dp.mybatis.v2.plugin.DpPlugin;
+import com.dp.mybatis.v2.plugin.InterceptorChain;
+import com.dp.mybatis.v2.statement.DpSimpleStatementHandler;
 import com.dp.mybatis.v2.statement.StatementHandler;
 
 import java.sql.*;
@@ -15,6 +18,7 @@ import java.sql.*;
 public class DpSimpleExecutor implements Executor {
     private final DpConfiguration configuration;
 
+
     public DpSimpleExecutor(DpConfiguration configuration) {
         this.configuration = configuration;
     }
@@ -27,7 +31,9 @@ public class DpSimpleExecutor implements Executor {
      */
     @Override
     public <T> T query(MapperData mapperData, Object parameter) {
-        StatementHandler statementHandler = new StatementHandler(this.configuration);
+        StatementHandler statementHandler = new DpSimpleStatementHandler(this.configuration);
+        //加入plugin拦截器
+        statementHandler = (StatementHandler)configuration.getInterceptorChain().pluginAll(statementHandler);
        return (T) statementHandler.query(mapperData,parameter);
 
     }

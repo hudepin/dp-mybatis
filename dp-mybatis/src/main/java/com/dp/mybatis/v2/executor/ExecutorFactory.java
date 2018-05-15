@@ -17,7 +17,9 @@ public class ExecutorFactory {
     }
     public static Executor get(String key, DpConfiguration configuration) {
         if (SIMPLE.equalsIgnoreCase(key)) {
-            return new DpSimpleExecutor(configuration);
+            Executor executor = new DpSimpleExecutor(configuration);
+            executor = (Executor)configuration.getInterceptorChain().pluginAll(executor);
+            return executor;
         }
         if (CACHING.equalsIgnoreCase(key)) {
             return new DpCachingExecutor(new DpSimpleExecutor(configuration));

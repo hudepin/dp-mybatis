@@ -2,6 +2,7 @@ package com.dp.mybatis.v2.executor;
 
 import com.dp.mybatis.v2.binding.MapperData;
 import com.dp.mybatis.v2.config.DpConfiguration;
+import com.dp.mybatis.v2.statement.DpSimpleStatementHandler;
 import com.dp.mybatis.v2.statement.StatementHandler;
 
 import java.util.HashMap;
@@ -19,7 +20,7 @@ public class DpCachingExecutor implements Executor {
 
     @Override
     public <T> T query(MapperData mapperData, Object parameter) {
-        StatementHandler statementHandler = new StatementHandler(configuration);
+        StatementHandler statementHandler = new DpSimpleStatementHandler(configuration);
         String key = mapperData.getSql();
         if(localCache.get(key)!=null){
             return(T) localCache.get(key);

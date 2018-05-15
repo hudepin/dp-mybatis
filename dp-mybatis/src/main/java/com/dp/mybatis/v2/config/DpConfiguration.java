@@ -5,6 +5,8 @@ import com.dp.mybatis.v2.annotation.Select;
 import com.dp.mybatis.v2.binding.MapperData;
 import com.dp.mybatis.v2.binding.MapperProxy;
 import com.dp.mybatis.v2.binding.MapperRegister;
+import com.dp.mybatis.v2.plugin.Interceptor;
+import com.dp.mybatis.v2.plugin.InterceptorChain;
 import com.dp.mybatis.v2.result.ResultSetHandler;
 import com.dp.mybatis.v2.session.DpSqlSession;
 import com.dp.mybatis.v2.statement.StatementHandler;
@@ -25,6 +27,10 @@ import java.util.Map;
  */
 public class DpConfiguration {
     private MapperRegister mapperRegister = new MapperRegister();
+    /**
+     * plugin 拦截器链
+     */
+    protected final InterceptorChain interceptorChain = new InterceptorChain();
     private String scanPath;
     public <T> T getMapper(Class<T> clazz,DpSqlSession sqlSession) {
         return (T)Proxy.newProxyInstance(clazz.getClassLoader(),new Class<?>[]{clazz},new MapperProxy(sqlSession));
@@ -35,7 +41,13 @@ public class DpConfiguration {
     public void setScanPath(String scanPath){
         this.scanPath = scanPath;
     }
+    public void addInterceptor(Interceptor interceptor) {
+        interceptorChain.addInterceptor(interceptor);
+    }
 
+    public InterceptorChain getInterceptorChain(){
+        return this.interceptorChain;
+    }
 
     public void build(){
         if(!StringUtils.isEmpty(scanPath)){
